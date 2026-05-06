@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import Sidebar from "../components/Sidebar";
 
 export default function Settings() {
   const [username, setUsername] = useState('');  // instellingen bijhouden in de state hooks
   const [email, setEmail] = useState('');
   const [theme, setTheme] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const savedUsername = localStorage.getItem("username");  // bij laden pagina eerder opgeslagen instellingen ophalen uit localstorage
@@ -30,10 +32,22 @@ export default function Settings() {
     setTimeout(() => setSaved(false), 3000);  // melding verwijnd na 3 sec
   }
 
-  return (
-    <div className="container mt-5" style={{ maxWidth: "500px" }}>
+ return (
+  <div className="d-flex" >
+    <Sidebar collapsed={sidebarCollapsed} />
+    <div
+      className="container-fluid p-4"
+      style={{ marginLeft: sidebarCollapsed ? 0 : "220px" }}
+    >
+      <button
+        className="btn btn-outline-primary mb-3"
+        onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+      >
+        {sidebarCollapsed ? "=" : "X"}
+      </button>
+
       <h2 className="text-center mb-4">Settings</h2>
-      <div className="p-4 border rounded shadow-sm bg-light">  { /* maak inputs en select in container settings  */ }
+      <div className="p-4 border rounded shadow-sm bg-light" style={{maxWidth: "500px", textAlign: "center", margin: "auto"}} >
         <input
           type="text"
           value={username}
@@ -41,15 +55,13 @@ export default function Settings() {
           className="form-control mb-3"
           onChange={e => setUsername(e.target.value)}
         />
-
         <input
           type="email"
           value={email}
           placeholder="Email"
           className="form-control mb-3"
-          onChange={e => setEmail(e.target.value)}  
+          onChange={e => setEmail(e.target.value)}
         />
-
         <select
           value={theme ? "light" : "dark"}
           className="form-select mb-4"
@@ -58,17 +70,16 @@ export default function Settings() {
           <option value="light">Light Theme</option>
           <option value="dark">Dark Theme</option>
         </select>
-
         <button className="btn btn-primary w-100" onClick={handleSave}>
           Opslaan
         </button>
-
         {saved && (
-          <p className="mt-3 text-center text-success fw-semibold"> { /*  bij saved geef melding  */ }
+          <p className="mt-3 text-center text-success fw-semibold">
             Instellingen opgeslagen!
           </p>
         )}
       </div>
     </div>
-  );
+  </div>
+);
 }

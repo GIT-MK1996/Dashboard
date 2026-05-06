@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Sidebar";
 
 export default function Users() {
   const [users, setUsers] = useState([]);  // sla gebruikers op in de state userss
   const [searchTerm, setSearchTerm] = useState("");  
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // filteren van gebruikers op naam en email 
   const filteredUsers = users.filter(user => {
@@ -20,12 +22,24 @@ export default function Users() {
       .catch(error => console.error("Fout bij ophalen:", error));   // haal lijst met gebruikers op vanuit api
   }, []);
 
-  return (
-    <div className="container mt-4" style={{ maxWidth: "800px" }}>
+ return (
+  <div className="d-flex">
+    <Sidebar collapsed={sidebarCollapsed} />
+    <div
+      className="container-fluid p-4"
+      style={{ marginLeft: sidebarCollapsed ? 0 : "220px" }}
+    >
+      <button
+        className="btn btn-outline-primary mb-3"
+        onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+      >
+        {sidebarCollapsed ? "=" : "X"}
+      </button>
+
       <h2 className="text-center mb-4">Gebruikers</h2>
 
       <input
-        type="text"                                             /* maak input en table en map over filteredusers voor render met bootstrap  */
+        type="text"
         className="form-control mb-3"
         placeholder="Zoeken op naam of email..."
         value={searchTerm}
@@ -61,5 +75,6 @@ export default function Users() {
         </tbody>
       </table>
     </div>
-  );
+  </div>
+);
 }
