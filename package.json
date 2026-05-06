@@ -1,34 +1,19 @@
 {
-"homepage": "https://git-mk1996.github.io/public-page",
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
-  },
+  "name": "admin-dashboard",
+  "private": true,
+  "version": "0.0.0",
   "scripts": {
-     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "dev": "vite",
+    "build": "npx --yes vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-     "@vitejs/plugin-react": "^4.7.0",
+    "@vitejs/plugin-react": "^4.7.0",
     "vite": "^6.3.5",
     "bootstrap": "^5.3.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-router-dom": "^7.6.3",
     "recharts": "^3.8.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
